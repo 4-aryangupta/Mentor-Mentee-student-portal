@@ -1,0 +1,11 @@
+import { NavLink } from 'react-router-dom';
+import { LayoutDashboard, Users, UserRound, Network, ClipboardList, CalendarDays, UserCircle, X, ChevronLeft, ChevronRight, GraduationCap } from 'lucide-react';
+const navByRole = {
+  admin: [{ label: 'Overview', to: '/admin/dashboard', icon: LayoutDashboard }, { label: 'Students', to: '/admin/students', icon: Users }, { label: 'Mentors', to: '/admin/mentors', icon: UserRound }, { label: 'Assignments', to: '/admin/assignments', icon: Network }],
+  mentor: [{ label: 'Overview', to: '/mentor/dashboard', icon: LayoutDashboard }, { label: 'My students', to: '/mentor/students', icon: Users }, { label: 'Sessions', to: '/sessions', icon: CalendarDays }],
+  student: [{ label: 'Overview', to: '/student/dashboard', icon: LayoutDashboard }, { label: 'My progress', to: '/student/progress', icon: ClipboardList }, { label: 'Sessions', to: '/sessions', icon: CalendarDays }]
+};
+export default function Sidebar({ role, open, onClose, collapsed, onToggle }) {
+  const items = [...(navByRole[role] || []), { label: 'My profile', to: '/profile', icon: UserCircle }];
+  return <><div className={`sidebar-scrim ${open ? 'visible' : ''}`} onClick={onClose}/><aside className={`sidebar ${open ? 'mobile-open' : ''} ${collapsed ? 'sidebar-collapsed' : ''}`}><div className="brand-lockup"><span className="brand-mark"><GraduationCap size={22}/></span>{!collapsed && <div><strong>Mentor<span>Desk</span></strong><small>DEPARTMENT PORTAL</small></div>}<button className="mobile-close icon-button" onClick={onClose} aria-label="Close navigation"><X size={18}/></button></div><div className="sidebar-rule"/><p className="nav-caption">WORKSPACE</p><nav className="side-nav">{items.map(({ label, to, icon: Icon }) => <NavLink key={to} to={to} title={collapsed ? label : undefined} onClick={onClose} className={({ isActive }) => `nav-link ${isActive ? 'active' : ''}`}><Icon size={18}/><span>{label}</span></NavLink>)}</nav><div className="sidebar-bottom"><div className="department-note"><div className="department-seal">IT</div>{!collapsed && <div><strong>Information Technology</strong><small>Academic services</small></div>}</div><button className="collapse-toggle" onClick={onToggle}>{collapsed ? <ChevronRight size={16}/> : <ChevronLeft size={16}/>}<span>{collapsed ? 'Expand' : 'Collapse menu'}</span></button></div></aside></>;
+}

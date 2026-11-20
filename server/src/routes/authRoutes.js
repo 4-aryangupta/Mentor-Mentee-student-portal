@@ -1,0 +1,11 @@
+import { Router } from 'express';
+import { body } from 'express-validator';
+import { login, logout, refresh, register } from '../controllers/authController.js';
+import { validateRequest } from '../middleware/validate.js';
+import { authMiddleware } from '../middleware/auth.js';
+const router = Router();
+router.post('/register', [body('name').trim().isLength({ min: 2, max: 120 }), body('email').isEmail(), body('password').isLength({ min: 8 }), body('phone').optional().isLength({ max: 20 }), body('department').optional().isLength({ max: 100 }), validateRequest], register);
+router.post('/login', [body('email').isEmail(), body('password').notEmpty(), validateRequest], login);
+router.post('/refresh', refresh);
+router.post('/logout', authMiddleware, logout);
+export default router;

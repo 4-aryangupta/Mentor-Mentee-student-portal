@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import { body, param } from 'express-validator';
+import { createSession, deleteSession, getSession, listSessions, updateSession } from '../controllers/sessionsController.js';
+import { authorize } from '../middleware/auth.js';
+import { validateRequest } from '../middleware/validate.js';
+const router = Router();
+router.get('/', listSessions);
+router.get('/:id', [param('id').isInt({ min: 1 }), validateRequest], getSession);
+router.post('/', authorize('mentor', 'admin'), [body('studentId').isInt({ min: 1 }), body('mentorId').optional().isInt({ min: 1 }), body('sessionDate').isISO8601(), body('topic').trim().isLength({ min: 3, max: 180 }), validateRequest], createSession);
+router.put('/:id', authorize('mentor', 'admin'), [param('id').isInt({ min: 1 }), body('status').optional().isIn(['scheduled', 'completed', 'cancelled']), body('topic').optional().isLength({ min: 3, max: 180 }), validateRequest], updateSession);
+router.delete('/:id', authorize('mentor', 'admin'), [param('id').isInt({ min: 1 }), validateRequest], deleteSession);
+export default router;

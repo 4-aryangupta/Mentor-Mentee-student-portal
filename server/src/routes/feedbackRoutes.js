@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import { body, param } from 'express-validator';
+import { createFeedback, deleteFeedback, getFeedback, listFeedback, updateFeedback } from '../controllers/feedbackController.js';
+import { authorize } from '../middleware/auth.js';
+import { validateRequest } from '../middleware/validate.js';
+const router = Router();
+router.get('/', listFeedback);
+router.get('/:id', [param('id').isInt({ min: 1 }), validateRequest], getFeedback);
+router.post('/', authorize('mentor', 'admin'), [body('studentId').isInt({ min: 1 }), body('message').trim().isLength({ min: 3, max: 5000 }), body('rating').isInt({ min: 1, max: 5 }), validateRequest], createFeedback);
+router.put('/:id', authorize('mentor', 'admin'), [param('id').isInt({ min: 1 }), body('message').optional().isLength({ min: 3, max: 5000 }), body('rating').optional().isInt({ min: 1, max: 5 }), validateRequest], updateFeedback);
+router.delete('/:id', authorize('mentor', 'admin'), [param('id').isInt({ min: 1 }), validateRequest], deleteFeedback);
+export default router;

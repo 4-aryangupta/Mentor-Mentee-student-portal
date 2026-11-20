@@ -1,0 +1,2472 @@
+{
+  "info": {
+    "_postman_id": "56b37674-ea53-4c5a-9d1e-a9e6e23550c9",
+    "name": "Mentor\u2013Mentee Student Portal API",
+    "description": "Complete API collection for the ITUL503 Mentor\u2013Mentee Student Portal. Login stores the access token in the collection variable. The API refresh token is an HTTP-only cookie.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{accessToken}}",
+        "type": "string"
+      }
+    ]
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    },
+    {
+      "key": "accessToken",
+      "value": "",
+      "type": "string"
+    },
+    {
+      "key": "userId",
+      "value": "",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Register student",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/register",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "register"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Nisha Rathore\",\n  \"email\": \"nisha@college.edu\",\n  \"password\": \"Student@123\",\n  \"phone\": \"9876543210\",\n  \"department\": \"Information Technology\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "201 sample response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/auth/register",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "register"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Nisha Rathore\",\n  \"email\": \"nisha@college.edu\",\n  \"password\": \"Student@123\",\n  \"phone\": \"9876543210\",\n  \"department\": \"Information Technology\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 11,\n    \"name\": \"Nisha Rathore\",\n    \"email\": \"nisha@college.edu\",\n    \"role\": \"student\",\n    \"isActive\": true\n  }\n}"
+            }
+          ],
+          "description": "Role is forced to student even if a role property is sent."
+        },
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/login",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "login"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@portal.edu\",\n  \"password\": \"Admin@123\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/auth/login",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "login"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"email\": \"admin@portal.edu\",\n  \"password\": \"Admin@123\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"accessToken\": \"<short-lived-access-token>\",\n    \"user\": {\n      \"id\": 1,\n      \"name\": \"Portal Administrator\",\n      \"email\": \"admin@portal.edu\",\n      \"role\": \"admin\",\n      \"isActive\": true\n    }\n  }\n}"
+            }
+          ],
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "type": "text/javascript",
+                "exec": [
+                  "const body = pm.response.json();",
+                  "if (body.success && body.data.accessToken) {",
+                  "  pm.collectionVariables.set(\"accessToken\", body.data.accessToken);",
+                  "  pm.collectionVariables.set(\"userId\", body.data.user.id);",
+                  "}"
+                ]
+              }
+            }
+          ]
+        },
+        {
+          "name": "Refresh access token",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/refresh",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "refresh"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/auth/refresh",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "refresh"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"message\": \"You have been signed out.\"\n  }\n}"
+            }
+          ],
+          "description": "Uses the httpOnly refresh cookie set by login. Postman keeps cookies for the API host."
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/auth/logout",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "auth",
+                "logout"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/auth/logout",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "auth",
+                    "logout"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"message\": \"You have been signed out.\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Users",
+      "item": [
+        {
+          "name": "List users",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users?role=student",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users?role=student"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users?role=student",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users?role=student"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 1,\n      \"name\": \"Aarav Gupta\",\n      \"email\": \"student1@portal.edu\",\n      \"role\": \"student\",\n      \"phone\": \"9876500020\",\n      \"department\": \"Information Technology\",\n      \"isActive\": true,\n      \"createdAt\": \"2026-11-01T09:00:00.000Z\"\n    },\n    {\n      \"id\": 5,\n      \"name\": \"Aditya Singh\",\n      \"email\": \"student5@portal.edu\",\n      \"department\": \"Information Technology\"\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get user by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Aarav Gupta\",\n    \"email\": \"student1@portal.edu\",\n    \"role\": \"student\",\n    \"phone\": \"9876500020\",\n    \"department\": \"Information Technology\",\n    \"isActive\": true,\n    \"createdAt\": \"2026-11-01T09:00:00.000Z\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create mentor or student (admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Dr. Nisha Rathore\",\n  \"email\": \"nisha.mentor@portal.edu\",\n  \"password\": \"Mentor@123\",\n  \"role\": \"mentor\",\n  \"phone\": \"9876543210\",\n  \"department\": \"Information Technology\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "201 sample response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Dr. Nisha Rathore\",\n  \"email\": \"nisha.mentor@portal.edu\",\n  \"password\": \"Mentor@123\",\n  \"role\": \"mentor\",\n  \"phone\": \"9876543210\",\n  \"department\": \"Information Technology\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 14,\n    \"name\": \"Dr. Nisha Rathore\",\n    \"email\": \"nisha.mentor@portal.edu\",\n    \"role\": \"mentor\",\n    \"isActive\": true\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update user profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/11",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "11"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Aarav Gupta\",\n  \"phone\": \"9876500020\",\n  \"department\": \"Information Technology\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/11",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "11"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"name\": \"Aarav Gupta\",\n  \"phone\": \"9876500020\",\n  \"department\": \"Information Technology\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 1,\n    \"name\": \"Aarav Gupta\",\n    \"email\": \"student1@portal.edu\",\n    \"role\": \"student\",\n    \"phone\": \"9876500020\",\n    \"department\": \"Information Technology\",\n    \"isActive\": true,\n    \"createdAt\": \"2026-11-01T09:00:00.000Z\"\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Deactivate user (soft delete)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/users/11",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "users",
+                "11"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/users/11",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "users",
+                    "11"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 11,\n    \"isActive\": false,\n    \"message\": \"Account deactivated. Historical records were retained.\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mentorships",
+      "item": [
+        {
+          "name": "List mentorships",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/mentorships",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mentorships"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/mentorships",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mentorships"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 3,\n      \"mentorId\": 2,\n      \"studentId\": 5,\n      \"assignedAt\": \"2026-11-10T09:00:00.000Z\",\n      \"status\": \"active\",\n      \"mentor\": {\n        \"id\": 2,\n        \"name\": \"Dr. Meera Sharma\",\n        \"email\": \"mentor1@portal.edu\",\n        \"role\": \"mentor\",\n        \"department\": \"Information Technology\",\n        \"isActive\": true\n      },\n      \"student\": {\n        \"id\": 5,\n        \"name\": \"Aditya Singh\",\n        \"email\": \"student5@portal.edu\",\n        \"department\": \"Information Technology\"\n      }\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get mentorship by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/mentorships/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mentorships",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/mentorships/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mentorships",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 3,\n    \"mentorId\": 2,\n    \"studentId\": 5,\n    \"assignedAt\": \"2026-11-10T09:00:00.000Z\",\n    \"status\": \"active\",\n    \"mentor\": {\n      \"id\": 2,\n      \"name\": \"Dr. Meera Sharma\",\n      \"email\": \"mentor1@portal.edu\",\n      \"role\": \"mentor\",\n      \"department\": \"Information Technology\",\n      \"isActive\": true\n    },\n    \"student\": {\n      \"id\": 5,\n      \"name\": \"Aditya Singh\",\n      \"email\": \"student5@portal.edu\",\n      \"department\": \"Information Technology\"\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Assign or reassign mentor",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/mentorships",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mentorships"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mentorId\": 2,\n  \"studentId\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "201 sample response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/mentorships",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mentorships"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"mentorId\": 2,\n  \"studentId\": 5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 14,\n    \"mentorId\": 2,\n    \"studentId\": 5,\n    \"assignedAt\": \"2026-11-20T10:00:00.000Z\",\n    \"status\": \"active\",\n    \"mentor\": {\n      \"id\": 2,\n      \"name\": \"Dr. Meera Sharma\",\n      \"email\": \"mentor1@portal.edu\",\n      \"role\": \"mentor\",\n      \"department\": \"Information Technology\",\n      \"isActive\": true\n    },\n    \"student\": {\n      \"id\": 5,\n      \"name\": \"Aditya Singh\",\n      \"email\": \"student5@portal.edu\",\n      \"department\": \"Information Technology\"\n    }\n  }\n}"
+            }
+          ],
+          "description": "Completes the old active assignment and inserts a new history row in one transaction."
+        },
+        {
+          "name": "Update assignment status",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/mentorships/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mentorships",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"completed\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/mentorships/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mentorships",
+                    "1"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"completed\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 3,\n    \"mentorId\": 2,\n    \"studentId\": 5,\n    \"assignedAt\": \"2026-11-10T09:00:00.000Z\",\n    \"status\": \"completed\",\n    \"mentor\": {\n      \"id\": 2,\n      \"name\": \"Dr. Meera Sharma\",\n      \"email\": \"mentor1@portal.edu\",\n      \"role\": \"mentor\",\n      \"department\": \"Information Technology\",\n      \"isActive\": true\n    },\n    \"student\": {\n      \"id\": 5,\n      \"name\": \"Aditya Singh\",\n      \"email\": \"student5@portal.edu\",\n      \"department\": \"Information Technology\"\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Close assignment (history retained)",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/mentorships/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "mentorships",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/mentorships/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "mentorships",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 3,\n    \"status\": \"completed\",\n    \"message\": \"Assignment closed. History retained.\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Progress reports",
+      "item": [
+        {
+          "name": "List progress reports",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/progress",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "progress"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/progress",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "progress"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 4,\n      \"studentId\": 5,\n      \"mentorId\": 2,\n      \"academicPerformance\": \"Maintained 8.2 SGPA and completed DBMS practicals.\",\n      \"achievements\": \"Built a React coursework tracker.\",\n      \"challenges\": \"Need more practice with SQL joins.\",\n      \"remarks\": \"Good progress. Continue weekly revision.\",\n      \"submittedAt\": \"2026-11-18T12:30:00.000Z\",\n      \"student\": {\n        \"id\": 5,\n        \"name\": \"Aditya Singh\",\n        \"email\": \"student5@portal.edu\",\n        \"department\": \"Information Technology\"\n      },\n      \"mentor\": {\n        \"id\": 2,\n        \"name\": \"Dr. Meera Sharma\",\n        \"email\": \"mentor1@portal.edu\",\n        \"role\": \"mentor\",\n        \"department\": \"Information Technology\",\n        \"isActive\": true\n      }\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get progress report by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/progress/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "progress",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/progress/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "progress",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 4,\n    \"studentId\": 5,\n    \"mentorId\": 2,\n    \"academicPerformance\": \"Maintained 8.2 SGPA and completed DBMS practicals.\",\n    \"achievements\": \"Built a React coursework tracker.\",\n    \"challenges\": \"Need more practice with SQL joins.\",\n    \"remarks\": \"Good progress. Continue weekly revision.\",\n    \"submittedAt\": \"2026-11-18T12:30:00.000Z\",\n    \"student\": {\n      \"id\": 5,\n      \"name\": \"Aditya Singh\",\n      \"email\": \"student5@portal.edu\",\n      \"department\": \"Information Technology\"\n    },\n    \"mentor\": {\n      \"id\": 2,\n      \"name\": \"Dr. Meera Sharma\",\n      \"email\": \"mentor1@portal.edu\",\n      \"role\": \"mentor\",\n      \"department\": \"Information Technology\",\n      \"isActive\": true\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Submit progress report (student)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/progress",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "progress"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"academicPerformance\": \"Maintained 8.2 SGPA and completed DBMS practicals.\",\n  \"achievements\": \"Built a React coursework tracker.\",\n  \"challenges\": \"Need more practice with SQL joins.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "201 sample response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/progress",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "progress"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"academicPerformance\": \"Maintained 8.2 SGPA and completed DBMS practicals.\",\n  \"achievements\": \"Built a React coursework tracker.\",\n  \"challenges\": \"Need more practice with SQL joins.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 15,\n    \"studentId\": 5,\n    \"mentorId\": 2,\n    \"academicPerformance\": \"Maintained 8.2 SGPA and completed DBMS practicals.\",\n    \"achievements\": \"Built a React coursework tracker.\",\n    \"challenges\": \"Need more practice with SQL joins.\",\n    \"remarks\": null,\n    \"submittedAt\": \"2026-11-18T12:30:00.000Z\",\n    \"student\": {\n      \"id\": 5,\n      \"name\": \"Aditya Singh\",\n      \"email\": \"student5@portal.edu\",\n      \"department\": \"Information Technology\"\n    },\n    \"mentor\": {\n      \"id\": 2,\n      \"name\": \"Dr. Meera Sharma\",\n      \"email\": \"mentor1@portal.edu\",\n      \"role\": \"mentor\",\n      \"department\": \"Information Technology\",\n      \"isActive\": true\n    }\n  }\n}"
+            }
+          ],
+          "description": "studentId is taken from the authenticated token; it is not accepted from the request body."
+        },
+        {
+          "name": "Update progress report / mentor review note",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/progress/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "progress",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"remarks\": \"Good progress. Continue weekly revision and practice joins.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/progress/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "progress",
+                    "1"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"remarks\": \"Good progress. Continue weekly revision and practice joins.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 4,\n    \"studentId\": 5,\n    \"mentorId\": 2,\n    \"academicPerformance\": \"Maintained 8.2 SGPA and completed DBMS practicals.\",\n    \"achievements\": \"Built a React coursework tracker.\",\n    \"challenges\": \"Need more practice with SQL joins.\",\n    \"remarks\": \"Good progress. Continue weekly revision and practice joins.\",\n    \"submittedAt\": \"2026-11-18T12:30:00.000Z\",\n    \"student\": {\n      \"id\": 5,\n      \"name\": \"Aditya Singh\",\n      \"email\": \"student5@portal.edu\",\n      \"department\": \"Information Technology\"\n    },\n    \"mentor\": {\n      \"id\": 2,\n      \"name\": \"Dr. Meera Sharma\",\n      \"email\": \"mentor1@portal.edu\",\n      \"role\": \"mentor\",\n      \"department\": \"Information Technology\",\n      \"isActive\": true\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete progress report",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/progress/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "progress",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/progress/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "progress",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"message\": \"Report deleted.\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Sessions",
+      "item": [
+        {
+          "name": "List sessions",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sessions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sessions"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sessions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sessions"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 8,\n      \"mentorId\": 2,\n      \"studentId\": 5,\n      \"sessionDate\": \"2026-12-02T10:30:00.000Z\",\n      \"topic\": \"Internship preparation\",\n      \"status\": \"scheduled\",\n      \"meetingNotes\": null,\n      \"mentor\": {\n        \"id\": 2,\n        \"name\": \"Dr. Meera Sharma\",\n        \"email\": \"mentor1@portal.edu\",\n        \"role\": \"mentor\",\n        \"department\": \"Information Technology\",\n        \"isActive\": true\n      },\n      \"student\": {\n        \"id\": 5,\n        \"name\": \"Aditya Singh\",\n        \"email\": \"student5@portal.edu\",\n        \"department\": \"Information Technology\"\n      }\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get session by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sessions/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sessions",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sessions/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sessions",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 8,\n    \"mentorId\": 2,\n    \"studentId\": 5,\n    \"sessionDate\": \"2026-12-02T10:30:00.000Z\",\n    \"topic\": \"Internship preparation\",\n    \"status\": \"scheduled\",\n    \"meetingNotes\": null,\n    \"mentor\": {\n      \"id\": 2,\n      \"name\": \"Dr. Meera Sharma\",\n      \"email\": \"mentor1@portal.edu\",\n      \"role\": \"mentor\",\n      \"department\": \"Information Technology\",\n      \"isActive\": true\n    },\n    \"student\": {\n      \"id\": 5,\n      \"name\": \"Aditya Singh\",\n      \"email\": \"student5@portal.edu\",\n      \"department\": \"Information Technology\"\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Schedule session (assigned mentor)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sessions",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sessions"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"studentId\": 1,\n  \"sessionDate\": \"2026-12-02T10:30:00.000Z\",\n  \"topic\": \"Internship preparation\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "201 sample response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sessions",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sessions"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"studentId\": 1,\n  \"sessionDate\": \"2026-12-02T10:30:00.000Z\",\n  \"topic\": \"Internship preparation\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 18,\n    \"mentorId\": 2,\n    \"studentId\": 5,\n    \"sessionDate\": \"2026-12-02T10:30:00.000Z\",\n    \"topic\": \"Internship preparation\",\n    \"status\": \"scheduled\",\n    \"meetingNotes\": null,\n    \"mentor\": {\n      \"id\": 2,\n      \"name\": \"Dr. Meera Sharma\",\n      \"email\": \"mentor1@portal.edu\",\n      \"role\": \"mentor\",\n      \"department\": \"Information Technology\",\n      \"isActive\": true\n    },\n    \"student\": {\n      \"id\": 5,\n      \"name\": \"Aditya Singh\",\n      \"email\": \"student5@portal.edu\",\n      \"department\": \"Information Technology\"\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update session and meeting notes",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sessions/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sessions",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"completed\",\n  \"meetingNotes\": \"Discussed resume improvements and agreed to complete two mock interviews.\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sessions/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sessions",
+                    "1"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"status\": \"completed\",\n  \"meetingNotes\": \"Discussed resume improvements and agreed to complete two mock interviews.\"\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 8,\n    \"mentorId\": 2,\n    \"studentId\": 5,\n    \"sessionDate\": \"2026-12-02T10:30:00.000Z\",\n    \"topic\": \"Internship preparation\",\n    \"status\": \"completed\",\n    \"meetingNotes\": \"Discussed resume improvements and agreed to complete two mock interviews.\",\n    \"mentor\": {\n      \"id\": 2,\n      \"name\": \"Dr. Meera Sharma\",\n      \"email\": \"mentor1@portal.edu\",\n      \"role\": \"mentor\",\n      \"department\": \"Information Technology\",\n      \"isActive\": true\n    },\n    \"student\": {\n      \"id\": 5,\n      \"name\": \"Aditya Singh\",\n      \"email\": \"student5@portal.edu\",\n      \"department\": \"Information Technology\"\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete session",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/sessions/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "sessions",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/sessions/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "sessions",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"message\": \"Session deleted.\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Feedback",
+      "item": [
+        {
+          "name": "List feedback",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/feedback",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "feedback"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/feedback",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "feedback"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": [\n    {\n      \"id\": 6,\n      \"mentorId\": 2,\n      \"studentId\": 5,\n      \"message\": \"Strong improvement in practical work. Keep your weekly goals specific.\",\n      \"rating\": 5,\n      \"createdAt\": \"2026-11-18T14:30:00.000Z\",\n      \"mentor\": {\n        \"id\": 2,\n        \"name\": \"Dr. Meera Sharma\",\n        \"email\": \"mentor1@portal.edu\",\n        \"role\": \"mentor\",\n        \"department\": \"Information Technology\",\n        \"isActive\": true\n      },\n      \"student\": {\n        \"id\": 5,\n        \"name\": \"Aditya Singh\",\n        \"email\": \"student5@portal.edu\",\n        \"department\": \"Information Technology\"\n      }\n    }\n  ]\n}"
+            }
+          ]
+        },
+        {
+          "name": "Get feedback by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/feedback/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "feedback",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/feedback/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "feedback",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 6,\n    \"mentorId\": 2,\n    \"studentId\": 5,\n    \"message\": \"Strong improvement in practical work. Keep your weekly goals specific.\",\n    \"rating\": 5,\n    \"createdAt\": \"2026-11-18T14:30:00.000Z\",\n    \"mentor\": {\n      \"id\": 2,\n      \"name\": \"Dr. Meera Sharma\",\n      \"email\": \"mentor1@portal.edu\",\n      \"role\": \"mentor\",\n      \"department\": \"Information Technology\",\n      \"isActive\": true\n    },\n    \"student\": {\n      \"id\": 5,\n      \"name\": \"Aditya Singh\",\n      \"email\": \"student5@portal.edu\",\n      \"department\": \"Information Technology\"\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Create feedback (mentor)",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/feedback",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "feedback"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"studentId\": 1,\n  \"message\": \"Strong improvement in practical work. Keep your weekly goals specific.\",\n  \"rating\": 5\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "201 sample response",
+              "originalRequest": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/feedback",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "feedback"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"studentId\": 1,\n  \"message\": \"Strong improvement in practical work. Keep your weekly goals specific.\",\n  \"rating\": 5\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 201,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 12,\n    \"mentorId\": 2,\n    \"studentId\": 5,\n    \"message\": \"Strong improvement in practical work. Keep your weekly goals specific.\",\n    \"rating\": 5,\n    \"createdAt\": \"2026-11-18T14:30:00.000Z\",\n    \"mentor\": {\n      \"id\": 2,\n      \"name\": \"Dr. Meera Sharma\",\n      \"email\": \"mentor1@portal.edu\",\n      \"role\": \"mentor\",\n      \"department\": \"Information Technology\",\n      \"isActive\": true\n    },\n    \"student\": {\n      \"id\": 5,\n      \"name\": \"Aditya Singh\",\n      \"email\": \"student5@portal.edu\",\n      \"department\": \"Information Technology\"\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Update feedback",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Content-Type",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/feedback/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "feedback",
+                "1"
+              ]
+            },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"message\": \"Good progress. Keep documenting your learning each week.\",\n  \"rating\": 4\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "PUT",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/feedback/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "feedback",
+                    "1"
+                  ]
+                },
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"message\": \"Good progress. Keep documenting your learning each week.\",\n  \"rating\": 4\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"id\": 6,\n    \"mentorId\": 2,\n    \"studentId\": 5,\n    \"message\": \"Good progress. Keep documenting your learning each week.\",\n    \"rating\": 4,\n    \"createdAt\": \"2026-11-18T14:30:00.000Z\",\n    \"mentor\": {\n      \"id\": 2,\n      \"name\": \"Dr. Meera Sharma\",\n      \"email\": \"mentor1@portal.edu\",\n      \"role\": \"mentor\",\n      \"department\": \"Information Technology\",\n      \"isActive\": true\n    },\n    \"student\": {\n      \"id\": 5,\n      \"name\": \"Aditya Singh\",\n      \"email\": \"student5@portal.edu\",\n      \"department\": \"Information Technology\"\n    }\n  }\n}"
+            }
+          ]
+        },
+        {
+          "name": "Delete feedback",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/feedback/1",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "feedback",
+                "1"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "DELETE",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/feedback/1",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "feedback",
+                    "1"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"message\": \"Feedback deleted.\"\n  }\n}"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Dashboard",
+      "item": [
+        {
+          "name": "Get role-specific dashboard",
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              },
+              {
+                "key": "Authorization",
+                "value": "Bearer {{accessToken}}",
+                "type": "text"
+              }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/dashboard",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "dashboard"
+              ]
+            }
+          },
+          "response": [
+            {
+              "name": "200 sample response",
+              "originalRequest": {
+                "method": "GET",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  },
+                  {
+                    "key": "Authorization",
+                    "value": "Bearer {{accessToken}}",
+                    "type": "text"
+                  }
+                ],
+                "url": {
+                  "raw": "{{baseUrl}}/dashboard",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "dashboard"
+                  ]
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "_postman_previewlanguage": "json",
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"success\": true,\n  \"data\": {\n    \"role\": \"admin\",\n    \"stats\": {\n      \"students\": 10,\n      \"mentors\": 3,\n      \"activeAssignments\": 10\n    },\n    \"sessionsByStatus\": [\n      {\n        \"status\": \"scheduled\",\n        \"total\": 8\n      },\n      {\n        \"status\": \"completed\",\n        \"total\": 2\n      }\n    ],\n    \"reportsByMonth\": [\n      {\n        \"month\": \"2026-11\",\n        \"total\": 10\n      }\n    ],\n    \"activeStudentsByMentor\": [\n      {\n        \"mentor_id\": 2,\n        \"mentor_name\": \"Dr. Meera Sharma\",\n        \"active_students\": 4\n      }\n    ],\n    \"upcomingSessions\": [\n      {\n        \"id\": 8,\n        \"mentorId\": 2,\n        \"studentId\": 5,\n        \"sessionDate\": \"2026-12-02T10:30:00.000Z\",\n        \"topic\": \"Internship preparation\",\n        \"status\": \"scheduled\",\n        \"meetingNotes\": null,\n        \"mentor\": {\n          \"id\": 2,\n          \"name\": \"Dr. Meera Sharma\",\n          \"email\": \"mentor1@portal.edu\",\n          \"role\": \"mentor\",\n          \"department\": \"Information Technology\",\n          \"isActive\": true\n        },\n        \"student\": {\n          \"id\": 5,\n          \"name\": \"Aditya Singh\",\n          \"email\": \"student5@portal.edu\",\n          \"department\": \"Information Technology\"\n        }\n      }\n    ],\n    \"latestReports\": [\n      {\n        \"id\": 4,\n        \"studentId\": 5,\n        \"mentorId\": 2,\n        \"academicPerformance\": \"Maintained 8.2 SGPA and completed DBMS practicals.\",\n        \"achievements\": \"Built a React coursework tracker.\",\n        \"challenges\": \"Need more practice with SQL joins.\",\n        \"remarks\": \"Good progress. Continue weekly revision.\",\n        \"submittedAt\": \"2026-11-18T12:30:00.000Z\",\n        \"student\": {\n          \"id\": 5,\n          \"name\": \"Aditya Singh\",\n          \"email\": \"student5@portal.edu\",\n          \"department\": \"Information Technology\"\n        },\n        \"mentor\": {\n          \"id\": 2,\n          \"name\": \"Dr. Meera Sharma\",\n          \"email\": \"mentor1@portal.edu\",\n          \"role\": \"mentor\",\n          \"department\": \"Information Technology\",\n          \"isActive\": true\n        }\n      }\n    ]\n  }\n}"
+            }
+          ],
+          "description": "Dashboard aggregates use SQL GROUP BY queries for session states, report months, and active students per mentor."
+        }
+      ]
+    }
+  ]
+}

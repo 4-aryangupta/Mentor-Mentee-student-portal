@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import { body, param } from 'express-validator';
+import { createProgress, deleteProgress, getProgress, listProgress, updateProgress } from '../controllers/progressController.js';
+import { authorize } from '../middleware/auth.js';
+import { validateRequest } from '../middleware/validate.js';
+const router = Router();
+router.get('/', listProgress);
+router.get('/:id', [param('id').isInt({ min: 1 }), validateRequest], getProgress);
+router.post('/', authorize('student'), [body('academicPerformance').trim().isLength({ min: 5, max: 5000 }), body('achievements').optional().isLength({ max: 5000 }), body('challenges').optional().isLength({ max: 5000 }), validateRequest], createProgress);
+router.put('/:id', [param('id').isInt({ min: 1 }), body('remarks').optional().isLength({ max: 5000 }), body('academicPerformance').optional().isLength({ min: 5, max: 5000 }), validateRequest], updateProgress);
+router.delete('/:id', [param('id').isInt({ min: 1 }), validateRequest], deleteProgress);
+export default router;

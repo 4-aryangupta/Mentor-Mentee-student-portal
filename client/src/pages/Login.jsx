@@ -1,0 +1,21 @@
+import { useRef, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { ArrowRight, BookOpenCheck, CircleCheck, GraduationCap, ShieldCheck, Users } from 'lucide-react';
+import { useAuth } from '../context/AuthContext.jsx';
+import FormInput from '../components/FormInput.jsx';
+import { useToast } from '../context/ToastContext.jsx';
+import { getErrorMessage } from '../services/api.js';
+export default function Login() {
+  const { login } = useAuth(); const navigate = useNavigate(); const location = useLocation(); const notify = useToast();
+  const firstField = useRef(null); const [form, setForm] = useState({ email: '', password: '' }); const [errors, setErrors] = useState({}); const [busy, setBusy] = useState(false);
+  const submit = async (event) => {
+    event.preventDefault(); const next = {};
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) next.email = 'Enter a valid college email address.';
+    if (!form.password) next.password = 'Enter your password.';
+    setErrors(next); if (Object.keys(next).length) { firstField.current?.focus(); return; }
+    setBusy(true); try { const user = await login(form); navigate(location.state?.from || `/${user.role}/dashboard`, { replace: true }); }
+    catch (err) { notify(getErrorMessage(err), 'error'); } finally { setBusy(false); }
+  };
+  return <div className="auth-layout"><section className="auth-story"><div className="auth-brand"><span className="brand-mark"><GraduationCap size={22}/></span><div><strong>Mentor<span>Desk</span></strong><small>DEPARTMENT OF INFORMATION TECHNOLOGY</small></div></div><div className="auth-story-content"><div className="eyebrow">ACADEMIC ADVISING · 2026–27</div><h1>Good guidance.<br/><em>Better outcomes.</em></h1><p>A shared space for students and faculty to keep academic progress, conversations, and next steps in view.</p><div className="auth-feature-list"><div><span><BookOpenCheck size={17}/></span><div><strong>Progress, made visible</strong><small>Keep academic updates in one place.</small></div></div><div><span><Users size={17}/></span><div><strong>Clear mentor connections</strong><small>Know who to reach and what comes next.</small></div></div><div><span><ShieldCheck size={17}/></span><div><strong>Private by design</strong><small>Records are limited to the right people.</small></div></div></div></div><div className="auth-story-footer"><span>SWAMI KESHWANAND INSTITUTE OF TECHNOLOGY</span><span>JAIPUR · RAJASTHAN</span></div><div className="auth-art" aria-hidden="true"><span/><span/><span/><i/></div></section>
+    <section className="auth-form-side"><div className="auth-form-wrap"><div className="auth-form-kicker">PORTAL ACCESS <span>01 / SIGN IN</span></div><h2>Sign in to your account</h2><p className="auth-subtitle">Use the account details provided by your department.</p><form onSubmit={submit} noValidate><FormInput ref={firstField} label="College email" name="email" type="email" placeholder="name@college.edu" value={form.email} error={errors.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required autoComplete="username"/><FormInput label="Password" name="password" type="password" placeholder="Enter your password" value={form.password} error={errors.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required autoComplete="current-password"/><button className="button button-primary auth-submit" disabled={busy}>{busy ? 'Signing in…' : 'Continue to portal'} <ArrowRight size={17}/></button></form><div className="auth-divider"><span/> <small>NEW TO THE PORTAL?</small> <span/></div><Link to="/register" className="button button-outline auth-register">Create a student account</Link><div className="demo-access"><div className="demo-heading"><CircleCheck size={15}/> Demo accounts for evaluation</div><div><span>Admin</span><code>admin@portal.edu</code><small>Admin@123</small></div><div><span>Mentor</span><code>mentor1@portal.edu</code><small>Mentor@123</small></div><div><span>Student</span><code>student1@portal.edu</code><small>Student@123</small></div></div><p className="auth-legal">By signing in, you agree to use this portal for academic purposes only.</p></div></section></div>;
+}

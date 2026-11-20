@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import { body, param } from 'express-validator';
+import { createMentorship, deleteMentorship, getMentorship, listMentorships, updateMentorship } from '../controllers/mentorshipsController.js';
+import { authorize } from '../middleware/auth.js';
+import { validateRequest } from '../middleware/validate.js';
+const router = Router();
+router.get('/', listMentorships);
+router.get('/:id', [param('id').isInt({ min: 1 }), validateRequest], getMentorship);
+router.post('/', authorize('admin'), [body('mentorId').isInt({ min: 1 }), body('studentId').isInt({ min: 1 }), validateRequest], createMentorship);
+router.put('/:id', authorize('admin'), [param('id').isInt({ min: 1 }), body('status').optional().isIn(['active', 'completed']), validateRequest], updateMentorship);
+router.delete('/:id', authorize('admin'), [param('id').isInt({ min: 1 }), validateRequest], deleteMentorship);
+export default router;

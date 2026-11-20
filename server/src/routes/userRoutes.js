@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import { body, param } from 'express-validator';
+import { createUser, deactivateUser, getUser, listUsers, updateUser } from '../controllers/usersController.js';
+import { authorize } from '../middleware/auth.js';
+import { validateRequest } from '../middleware/validate.js';
+const router = Router();
+router.get('/', listUsers);
+router.get('/:id', [param('id').isInt({ min: 1 }), validateRequest], getUser);
+router.post('/', authorize('admin'), [body('name').trim().isLength({ min: 2, max: 120 }), body('email').isEmail(), body('password').isLength({ min: 8 }), body('role').isIn(['mentor', 'student']), validateRequest], createUser);
+router.put('/:id', [param('id').isInt({ min: 1 }), body('email').optional().isEmail(), body('name').optional().trim().isLength({ min: 2, max: 120 }), body('role').optional().isIn(['admin', 'mentor', 'student']), body('isActive').optional().isBoolean(), validateRequest], updateUser);
+router.delete('/:id', authorize('admin'), [param('id').isInt({ min: 1 }), validateRequest], deactivateUser);
+export default router;

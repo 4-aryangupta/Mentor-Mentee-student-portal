@@ -1,6 +1,6 @@
 # Mentor–Mentee Student Portal
 
-A full-stack college mentorship portal for the MERN Stack Lab (ITUL503), implemented with a relational MySQL database. Admins manage users and mentor assignments; mentors work with their assigned students; students submit academic progress and review sessions and mentor feedback.
+A full-stack college mentorship portal implemented with a relational MySQL database. Admins manage users and mentor assignments; mentors work with their assigned students; students submit academic progress and review sessions and mentor feedback.
 
 ## Stack
 
